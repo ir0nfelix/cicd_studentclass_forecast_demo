@@ -32,7 +32,7 @@ jobs:
       run: zip -r weather-report-app.zip . -x "*.git*" "node_modules/*"
 
     - name: Сохраняем Артефакт в Системе после архивирования
-      uses: action/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: app-build
         path: weather-report-app.zip
