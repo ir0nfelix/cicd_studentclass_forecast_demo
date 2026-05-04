@@ -1,7 +1,8 @@
 name: My first CI-file
 
 on:
-  workflow_dispatch:
+  push:
+    branches: ["main"]
 
 jobs:
   test:
