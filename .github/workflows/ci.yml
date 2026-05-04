@@ -1,1 +1,39 @@
-# TODO
+name: My first CI-file
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Скачка кода из репозитория
+      uses: actions/checkout@v4
+
+    - name: Установка NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+
+    - name: Установка Зависимостей
+      run: npm install
+
+    - name: Запуск Тестов
+      run: npm test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Скачка кода из репозитория
+      uses: actions/checkout@v4
+
+    - name: Сохраняем Артефакт в Системе
+      run: zip -r weather-report-app.zip . -x "*.git*" "node_modules/*"
+
+    - name: Сохраняем Артефакт в Системе после архивирования
+      uses: action/upload-artifact@v4
+      with:
+        name: app-build
+        path: weather-report-app.zip
+        retention-days: 7
